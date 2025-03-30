@@ -1,0 +1,30 @@
+# depslib dependency file v1.0
+1743334116 source:f:\desktop\hangman\util.cpp
+	"util.h"
+
+1743332239 f:\desktop\hangman\util.h
+	<Windows.h>
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+	<stdexcept>
+
+1743328413 source:f:\desktop\hangman\draw.cpp
+	"util.h"
+
+1743334162 source:f:\desktop\hangman\main.cpp
+	<iostream>
+	<string>
+	<vector>
+	<ctime>
+	<stdexcept>
+	<algorithm>
+	<thread>
+	<chrono>
+	"util.h"
+	"draw.h"
+
+1743328453 f:\desktop\hangman\draw.h
+	<string>
+
