@@ -28,3 +28,33 @@
 1743328453 f:\desktop\hangman\draw.h
 	<string>
 
+1743328413 source:c:\users\dat nguyen\documents\github\ltnc-hangmangame\draw.cpp
+	"util.h"
+
+1743363092 c:\users\dat nguyen\documents\github\ltnc-hangmangame\util.h
+	<Windows.h>
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+	<stdexcept>
+
+1743363092 source:c:\users\dat nguyen\documents\github\ltnc-hangmangame\util.cpp
+	"util.h"
+
+1743363154 source:c:\users\dat nguyen\documents\github\ltnc-hangmangame\main.cpp
+	<iostream>
+	<string>
+	<vector>
+	<ctime>
+	<stdexcept>
+	<algorithm>
+	<thread>
+	<chrono>
+	"util.h"
+	"draw.h"
+	<conio.h>
+
+1743328453 c:\users\dat nguyen\documents\github\ltnc-hangmangame\draw.h
+	<string>
+

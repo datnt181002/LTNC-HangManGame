@@ -106,3 +106,11 @@ void writeScoreToFile(const std::string& filePath, const Score& score) {
         file.close();
     }
 }
+
+void ResetScore(const std::string& filePath) {
+    std::ofstream file(filePath, std::ios::trunc); // Ghi đè
+    if (file.is_open()) {
+        file << 0 << " " << 0 << " " << 0;
+        file.close();
+    }
+}

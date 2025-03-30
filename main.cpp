@@ -25,21 +25,28 @@ string chooseWordFromList(const vector<string>& wordList)
 }
 
 const string SCORE_FILE = "score.txt";
-void printStats(const string& word, const string& secretWord,
-                const string& correctChars,
-                const int incorrectGuess, const string& incorrectChars)
+bool PrintScore(bool AlwayDisplay) //Nếu AlwayDisplay = false thì k hiện khi tổng game = 0 (ván đầu)
 {
     Score score = readScoreFromFile(SCORE_FILE);
-
+    if(score.totalGames == 0 && AlwayDisplay == false)
+    {
+        return false;
+    }
     cout << "-------------------------------" << endl;
     cout << "Games played: " << score.totalGames
          << " | Wins: " << score.wins
          << " | Losses: " << score.losses << endl;
     cout << "-------------------------------" << endl << endl;
+    return true;
+}
+void printStats(const string& word, const string& secretWord,
+                const string& correctChars,
+                const int incorrectGuess, const string& incorrectChars)
+{
+    PrintScore(true);
     cout << "Current word: " << secretWord;
     cout << endl << "Correct guesses: " << correctChars;
     cout << "    " << "Incorrect guesses: " << incorrectChars;
-
     if (secretWord == word)
     {
         cout << endl << "Well done :D   The word is: " << word << endl;
@@ -125,21 +132,72 @@ void playAnimation(const string& word, const string& secretWord,
     }
 }
 
-int i;
+#include <conio.h>
+
 int main()
 {
     setConsoleColor(BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE | BACKGROUND_INTENSITY); // Trắng sáng
     cls();
 
-    cout << endl << "Error: in reading vocabulary file: " << endl;
-    cin >> i;
-
     while(1)
     {
+        int WordListChoosen = 0; //Reset bien wordlist
+        while (WordListChoosen > 3 || WordListChoosen < 1)
+        {
+            if(PrintScore(false) == true)
+            {
+                cout << "Press letter C or N to (C)ontinue or (N)ewgame?";
+                char ch;
+                while (1)
+                {
+                    ch = _getch();  // Đọc phím không cần Enter
+                    if (ch == 'c' || ch == 'C')
+                    {
+
+                        break;
+                    }
+                    else if (ch == 'n' || ch == 'N')
+                    {
+                        ResetScore(SCORE_FILE);
+                        break;
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+            cls();
+            cout << "Choose Word Topic: " << endl << "1: Colors || 2: Foods || 3: Animals" << endl << "Your Choose: ";
+            cin >> WordListChoosen;
+            cin.clear();
+            cls();
+            if(WordListChoosen > 3 || WordListChoosen < 1)
+            {
+                WordListChoosen;
+                cout << "Wroong Choosen! Press ENTER to choose again! " << endl;
+                cin.get();
+            }
+        }
+
+        string vocabularyFile;
+        switch (WordListChoosen)
+        {
+        case 1:
+            vocabularyFile = "WordList/Colors.txt";
+            break;
+        case 2:
+            vocabularyFile = "WordList/Foods.txt";
+            break;
+        case 3:
+            vocabularyFile = "WordList/Animals.txt";
+            break;
+        }
+
         srand((int)time(0));
         //string vocabularyFile = "WordList/Ogden_Picturable_200.txt";
         //string vocabularyFile = "WordList/ErrorOpenFileTest.txt";
-        string vocabularyFile = "WordList/EmptyTest.txt";
+
         vector<string> wordList;
         try
         {
@@ -179,7 +237,6 @@ int main()
         while (secretWord != word && incorrectGuess != MAX_MISTAKES-1);
 
         playAnimation(word, secretWord, correctChars, incorrectGuess, incorrectChars);
-
 
         Score score = readScoreFromFile(SCORE_FILE);
         score.totalGames++;

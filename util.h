@@ -28,3 +28,4 @@ struct Score {
 
 Score readScoreFromFile(const std::string& filePath);
 void writeScoreToFile(const std::string& filePath, const Score& score);
+void ResetScore(const std::string& filePath);
