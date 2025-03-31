@@ -7,6 +7,7 @@
 
 #include <thread>         // std::this_thread::sleep_for
 #include <chrono>         // std::chrono::seconds
+#include <conio.h>        // Lib cho lệnh getch()
 
 #include "util.h"
 #include "draw.h"
@@ -18,7 +19,6 @@ const int MAX_MISTAKES = 8;
 string chooseWordFromList(const vector<string>& wordList)
 {
     if (wordList.empty()) return "";
-
     string word = wordList[generateRandomNumber(0, wordList.size()-1)];
     transform(word.begin(), word.end(), word.begin(), ::tolower);
     return word;
@@ -39,6 +39,7 @@ bool PrintScore(bool AlwayDisplay) //Nếu AlwayDisplay = false thì k hiện kh
     cout << "-------------------------------" << endl << endl;
     return true;
 }
+
 void printStats(const string& word, const string& secretWord,
                 const string& correctChars,
                 const int incorrectGuess, const string& incorrectChars)
@@ -132,8 +133,8 @@ void playAnimation(const string& word, const string& secretWord,
     }
 }
 
-#include <conio.h>
 
+#define NumberOfList 4
 int main()
 {
     setConsoleColor(BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE | BACKGROUND_INTENSITY); // Trắng sáng
@@ -142,11 +143,11 @@ int main()
     while(1)
     {
         int WordListChoosen = 0; //Reset bien wordlist
-        while (WordListChoosen > 3 || WordListChoosen < 1)
+        while (WordListChoosen > NumberOfList || WordListChoosen < 1)
         {
             if(PrintScore(false) == true)
             {
-                cout << "Press letter C or N to (C)ontinue or (N)ewgame?";
+                cout << "Press letter C or N or E to (C)ontinue or (N)ewgame or (E)xit?";
                 char ch;
                 while (1)
                 {
@@ -161,18 +162,18 @@ int main()
                         ResetScore(SCORE_FILE);
                         break;
                     }
-                    else
+                    else if (ch == 'e' || ch == 'E')
                     {
-
+                        return 1;
                     }
                 }
             }
             cls();
-            cout << "Choose Word Topic: " << endl << "1: Colors || 2: Foods || 3: Animals" << endl << "Your Choose: ";
+            cout << "Choose Word Topic: " << endl << "1: Colors || 2: Foods || 3: Animals || 4: General" << endl << "Your Choose: ";
             cin >> WordListChoosen;
             cin.clear();
             cls();
-            if(WordListChoosen > 3 || WordListChoosen < 1)
+            if(WordListChoosen > NumberOfList || WordListChoosen < 1)
             {
                 WordListChoosen;
                 cout << "Wroong Choosen! Press ENTER to choose again! " << endl;
@@ -191,6 +192,9 @@ int main()
             break;
         case 3:
             vocabularyFile = "WordList/Animals.txt";
+            break;
+        case 4:
+            vocabularyFile = "WordList/general.txt";
             break;
         }
 
